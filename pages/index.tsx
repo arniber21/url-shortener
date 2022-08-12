@@ -9,11 +9,11 @@ const Home: NextPage = () => {
 	const [loaded, setLoaded] = useState(false);
 	const [copied, setCopied] = useState(false);
 
-	const handleChange = (e) => {
+	const handleChange = (e: any) => {
 		setFormValue(e.target.value);
 	}
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		const data = { link: `https://${formValue}` }
 		await fetch('/api/createUrl', {
