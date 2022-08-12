@@ -29,7 +29,12 @@ const Home: NextPage = () => {
 
 	return (
 		<div className='container'>
-			<a href={url} className={'btn btn-primary'}>Go to URL</a>
+			<h1 className='text-center p-3'>URL Shortener</h1>
+			<div className="center-item">
+				<div>
+					<a href={url} className={'btn btn-primary'}>Go to URL</a>
+				</div>
+			</div>
 		</div>
 	)
 }
