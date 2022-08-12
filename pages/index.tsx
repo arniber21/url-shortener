@@ -8,6 +8,7 @@ const Home: NextPage = () => {
 	const [url, setUrl] = useState("");
 	const [loaded, setLoaded] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e: any) => {
 		setFormValue(e.target.value);
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		const data = { link: `https://${formValue}` }
+		setLoading(true);
 		await fetch('/api/createUrl', {
 			method: 'POST',
 			headers: {
@@ -25,6 +27,7 @@ const Home: NextPage = () => {
 		}).then(data => data.json()).then((data => {
 			setUrl(data.id);
 			setLoaded(true);
+			setLoading(false);
 		}));
 
 	}
@@ -55,6 +58,9 @@ const Home: NextPage = () => {
 					<input type="submit" className='btn btn-primary' />
 				</div>
 			</form>
+			{loading &&
+				<div className="m-3">Loading...</div>
+			}
 			{loaded &&
 			<div>Your shortened link:
 				<div className="input-group mb-3">

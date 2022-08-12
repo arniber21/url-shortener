@@ -8,11 +8,12 @@ const Home: NextPage = () => {
 	const router = useRouter();
 	let id: number = Number.parseInt(router.query.id as string);
 	const [url, setUrl] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const doStuff = async () => {
 			const data = { id }
-			console.log('doing stuff');
+			setLoading(true);
 			await fetch('/api/getUrl', {
 				method: "POST",
 				headers: {
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
 			}).then(res => res.json()).then((res) => {
 				console.log(res);
 				setUrl(res.url)
+				setLoading(false);
 			});
 		}
 		doStuff().then();
@@ -31,9 +33,15 @@ const Home: NextPage = () => {
 		<div className='container'>
 			<h1 className='text-center p-3'>URL Shortener</h1>
 			<div className="center-item">
-				<div>
-					<a href={url} className={'btn btn-primary'}>Go to URL</a>
-				</div>
+				{ loading &&
+                    <div>
+                        Loading...
+                    </div>}
+				{!loading &&
+                    <div>
+                        <a href={url} className={'btn btn-primary'}>Go to URL</a>
+                    </div>
+				}
 			</div>
 		</div>
 	)
